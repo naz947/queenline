@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>QueenLine Studios – Bespoke Tailoring for Women</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blush: #f5d6d9;
+    --blush-deep: #e8b4bb;
+    --rose: #c97a87;
+    --rose-dark: #a85965;
+    --lavender: #e8dff0;
+    --lavender-mid: #c9b8de;
+    --sage: #d4e3d0;
+    --cream: #fdf8f5;
+    --white: #fff;
+    --text: #3d2630;
+    --text-mid: #7a5060;
+    --text-light: #b08090;
+    --border: rgba(201,122,135,0.2);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(ellipse 600px 400px at 10% 20%, rgba(245,214,217,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 500px at 90% 10%, rgba(232,223,240,0.45) 0%, transparent 70%),
+      radial-gradient(ellipse 700px 400px at 50% 90%, rgba(212,227,208,0.3) 0%, transparent 70%),
+      var(--cream);
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 5rem;
+    background: rgba(253,248,245,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    animation: fadeDown 0.8s ease both;
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.55rem; font-weight: 500; color: var(--text); letter-spacing: 0.03em; }
+  .logo span { color: var(--rose); font-style: italic; }
+  nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+  nav ul a { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; letter-spacing: 0.12em; font-weight: 400; transition: color 0.3s; }
+  nav ul a:hover { color: var(--rose); }
+  .nav-cta { background: var(--rose) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 30px; font-size: 0.8rem !important; }
+  .nav-cta:hover { background: var(--rose-dark) !important; color: #fff !important; }
+
+  .petal { position: fixed; pointer-events: none; opacity: 0; z-index: 0; animation: petal-fall linear infinite; font-size: 1.1rem; }
+  @keyframes petal-fall { 0% { opacity:0; transform:translateY(-40px) rotate(0deg); } 10% { opacity:0.35; } 90% { opacity:0.15; } 100% { opacity:0; transform:translateY(100vh) rotate(360deg); } }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1.1fr 0.9fr; padding-top: 80px; position: relative; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 5rem 3rem 5rem 6rem; position: relative; z-index: 1; animation: fadeLeft 1s ease 0.3s both; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.76rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.6rem; }
+  .eyebrow-line { width: 36px; height: 1px; background: var(--blush-deep); }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 400; line-height: 1.1; margin-bottom: 1.8rem; }
+  .hero h1 em { font-style: italic; color: var(--rose); display: block; }
+  .hero > .hero-left > p { font-size: 1rem; line-height: 1.9; color: var(--text-mid); max-width: 420px; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-rose { display: inline-block; padding: 1rem 2.4rem; background: var(--rose); color: #fff; text-decoration: none; font-size: 0.82rem; letter-spacing: 0.15em; border-radius: 40px; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(201,122,135,0.3); transition: background 0.3s, transform 0.2s, box-shadow 0.3s; }
+  .btn-rose:hover { background: var(--rose-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(201,122,135,0.4); }
+  .btn-ghost { display: inline-block; padding: 1rem 2.2rem; border: 1px solid var(--blush-deep); color: var(--rose); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.15em; border-radius: 40px; transition: background 0.3s, border-color 0.3s; }
+  .btn-ghost:hover { background: var(--blush); border-color: var(--rose); }
+  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; animation: fadeRight 1s ease 0.5s both; padding: 3rem; }
+  .hero-circle { width: 460px; height: 460px; border-radius: 50%; background: linear-gradient(145deg, var(--blush) 0%, var(--lavender) 100%); position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 80px rgba(201,122,135,0.15); animation: float 7s ease-in-out infinite; }
+  .hero-circle::before { content: ''; position: absolute; inset: -20px; border-radius: 50%; border: 1px solid rgba(201,122,135,0.2); }
+  .hero-circle::after { content: ''; position: absolute; inset: -42px; border-radius: 50%; border: 1px dashed rgba(201,122,135,0.12); }
+  .hero-dress { font-size: 9rem; line-height: 1; filter: drop-shadow(0 10px 20px rgba(168,89,101,0.18)); }
+  .hero-tag { position: absolute; background: rgba(255,255,255,0.88); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 30px; padding: 0.6rem 1.2rem; font-size: 0.78rem; color: var(--text-mid); display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 16px rgba(201,122,135,0.1); white-space: nowrap; }
+  .tag-1 { top: 2.5rem; right: -3rem; }
+  .tag-2 { bottom: 3.5rem; left: -4.5rem; }
+  .tag-3 { top: 50%; right: -5rem; transform: translateY(-50%); }
+
+  section { padding: 6rem 6rem; position: relative; }
+  .section-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rose); margin-bottom: 1rem; }
+  .tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blush-deep); flex-shrink: 0; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 400; line-height: 1.2; color: var(--text); margin-bottom: 1.2rem; }
+  .section-title em { font-style: italic; color: var(--rose); }
+  .soft-divider { width: 50px; height: 2px; background: linear-gradient(to right, var(--blush-deep), var(--lavender-mid)); border-radius: 2px; margin-bottom: 3rem; }
+  .floral-corner { position: absolute; font-size: 4rem; opacity: 0.07; pointer-events: none; line-height: 1; }
+
+  #services { background: var(--white); }
+  .services-intro { max-width: 520px; margin-bottom: 4rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .service-card { background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: transform 0.4s ease, box-shadow 0.4s ease; cursor: default; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--blush-deep), var(--lavender-mid)); opacity: 0; transition: opacity 0.4s; }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(201,122,135,0.15); }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:nth-child(even) { margin-top: 1.5rem; }
+  .service-icon-wrap { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, var(--blush), var(--lavender)); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 1.3rem; }
+  .service-card h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 400; margin-bottom: 0.8rem; color: var(--text); }
+  .service-card p { font-size: 0.88rem; line-height: 1.85; color: var(--text-light); }
+
+  #process { background: linear-gradient(160deg, var(--blush) 0%, var(--lavender) 55%, var(--sage) 100%); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; position: relative; }
+  .steps::before { content: ''; position: absolute; top: 3.2rem; left: 12%; right: 12%; height: 1px; background: linear-gradient(to right, var(--rose), var(--lavender-mid)); opacity: 0.35; }
+  .step { text-align: center; }
+  .step-bubble { width: 64px; height: 64px; border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 1.6rem; box-shadow: 0 8px 24px rgba(201,122,135,0.2); position: relative; z-index: 1; }
+  .step h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.6rem; color: var(--text); }
+  .step p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.75; }
+  .step-num-label { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--rose); margin-bottom: 0.5rem; }
+
+  #testimonials { background: var(--cream); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .testimonial { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 2.2rem; transition: transform 0.3s, box-shadow 0.3s; position: relative; }
+  .testimonial:nth-child(2), .testimonial:nth-child(5) { margin-top: 1.5rem; }
+  .testimonial:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(201,122,135,0.12); }
+  .t-floral { position: absolute; top: 1.2rem; right: 1.5rem; font-size: 1.4rem; opacity: 0.2; }
+  .stars { color: var(--rose); font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+  .testimonial p { font-size: 0.92rem; line-height: 1.9; color: var(--text-mid); font-style: italic; margin-bottom: 1.5rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 0.9rem; }
+  .author-avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, var(--blush), var(--lavender)); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--rose-dark); font-weight: 500; flex-shrink: 0; }
+  .author-info strong { display: block; font-size: 0.88rem; font-weight: 500; color: var(--text); }
+  .author-info span { font-size: 0.76rem; color: var(--text-light); }
+
+  #booking { background: linear-gradient(160deg, #fff5f6 0%, #f3eef8 50%, #eef5ed 100%); }
+  .booking-header { max-width: 580px; margin-bottom: 3.5rem; }
+  .form-wrapper { max-width: 980px; margin: 0 auto; background: var(--white); border-radius: 28px; border: 1px solid var(--border); padding: 3.5rem; box-shadow: 0 20px 60px rgba(201,122,135,0.08); position: relative; overflow: hidden; }
+  .form-wrapper::after { content: '🌸'; position: absolute; top: 1rem; right: 2rem; font-size: 5rem; opacity: 0.05; pointer-events: none; }
+  .form-section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; color: var(--rose-dark); margin: 2.5rem 0 1.5rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+  .form-section-title:first-of-type { margin-top: 0; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-light); font-weight: 400; }
+  input, select, textarea { background: var(--cream); border: 1px solid var(--border); color: var(--text); padding: 0.85rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 300; border-radius: 10px; outline: none; width: 100%; transition: border-color 0.3s, box-shadow 0.3s, background 0.3s; }
+  input::placeholder, textarea::placeholder { color: var(--text-light); opacity: 0.6; }
+  input:focus, select:focus, textarea:focus { border-color: var(--rose); background: var(--white); box-shadow: 0 0 0 3px rgba(201,122,135,0.1); }
+  textarea { resize: vertical; min-height: 100px; }
+  .input-unit { position: relative; }
+  .input-unit input { padding-right: 3.2rem; }
+  .unit-label { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--rose); font-size: 0.78rem; pointer-events: none; font-weight: 500; }
+  .form-submit { margin-top: 2.5rem; text-align: center; }
+  .btn-submit { padding: 1.1rem 4rem; background: linear-gradient(135deg, var(--rose), var(--rose-dark)); color: #fff; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; border-radius: 40px; box-shadow: 0 10px 30px rgba(201,122,135,0.35); transition: transform 0.2s, box-shadow 0.3s; }
+  .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(201,122,135,0.45); }
+  .form-note { margin-top: 1rem; font-size: 0.78rem; color: var(--text-light); }
+  .success-msg { display: none; background: linear-gradient(135deg, var(--blush), var(--lavender)); border: 1px solid var(--blush-deep); border-radius: 20px; padding: 3rem; text-align: center; }
+  .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--rose-dark); margin-bottom: 0.8rem; }
+  .success-msg p { color: var(--text-mid); font-size: 0.95rem; }
+
+  footer { background: var(--text); color: rgba(255,255,255,0.38); text-align: center; padding: 3rem; font-size: 0.82rem; letter-spacing: 0.06em; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--blush); margin-bottom: 0.5rem; font-style: italic; }
+
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeLeft { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes fadeRight { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-16px); } }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 6rem 2rem 2rem; }
+    .hero-right { min-height: 300px; }
+    .hero-circle { width: 260px; height: 260px; }
+    .hero-dress { font-size: 5rem; }
+    .tag-1, .tag-2, .tag-3 { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    .service-card:nth-child(even), .testimonial:nth-child(2), .testimonial:nth-child(5) { margin-top: 0; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .steps::before { display: none; }
+    .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+    .form-wrapper { padding: 1.5rem; border-radius: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div class="petal" style="left:5%;animation-duration:12s;animation-delay:0s;top:-20px;">🌸</div>
+<div class="petal" style="left:22%;animation-duration:14s;animation-delay:3s;top:-20px;">🌷</div>
+<div class="petal" style="left:45%;animation-duration:10s;animation-delay:6s;top:-20px;">🌸</div>
+<div class="petal" style="left:65%;animation-duration:15s;animation-delay:1.5s;top:-20px;">🌹</div>
+<div class="petal" style="left:82%;animation-duration:11s;animation-delay:8s;top:-20px;">🌸</div>
+<div class="petal" style="left:92%;animation-duration:13s;animation-delay:4s;top:-20px;">🌷</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Queen<span>Line</span> Studios</div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#booking" class="nav-cta">Book a Fitting</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      Bespoke Tailoring for Women
+      <span class="eyebrow-line"></span>
+    </div>
+    <h1>
+      Dressed to Make<br/>
+      You Feel Like a<br/>
+      <em>Queen</em>
+    </h1>
+    <p>We take your measurements, stitch your dream outfit, and deliver it right to your door. Tailoring that fits your body, your style, and your story.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-rose">Book Your Fitting 🌸</a>
+      <a href="#services" class="btn-ghost">Our Services</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-circle">
+      <div class="hero-dress">👗</div>
+    </div>
+    <div class="hero-tag tag-1">✂️ Made-to-Measure</div>
+    <div class="hero-tag tag-2">🚚 Home Delivery</div>
+    <div class="hero-tag tag-3">🌸 Handcrafted with Love</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="floral-corner" style="top:2rem;left:2rem;">🌸🌷</div>
+  <div class="floral-corner" style="bottom:2rem;right:2rem;">🌺🌸</div>
+  <div class="services-intro">
+    <div class="section-tag"><span class="tag-dot"></span>What We Offer<span class="tag-dot"></span></div>
+    <h2 class="section-title">Crafted For <em>Every</em><br/>Occasion</h2>
+    <div class="soft-divider"></div>
+    <p style="color:var(--text-mid);line-height:1.9;font-size:0.95rem;">From bridal gowns to everyday elegance — QueenLine Studios creates garments that celebrate every curve, every dream, and every woman.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon-wrap">👗</div>
+      <h3>Custom Dresses</h3>
+      <p>Designed from scratch to your exact measurements. Whether flowing or structured, we stitch the dress you've always imagined.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon-wrap">🧵</div>
+      <h3>Alterations & Fitting</h3>
+      <p>Breathe new life into a beloved piece. We resize, reshape, and refine any garment until it fits you like it was made for you — because it will be.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon-wrap">💍</div>
+      <h3>Bridal & Occasion Wear</h3>
+      <p>Your most special moments deserve the most special fit. Bespoke bridal gowns and occasion wear stitched with devotion.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon-wrap">👔</div>
+      <h3>Formal & Office Attire</h3>
+      <p>Command every room in perfectly tailored blazers, suits, and workwear designed for confidence and effortless comfort.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon-wrap">🌙</div>
+      <h3>Cultural & Traditional</h3>
+      <p>Abayas, kaftans, shalwar kameez, and more — stitched with respect for tradition and a devotion to perfect fit.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon-wrap">🚗</div>
+      <h3>Doorstep Delivery</h3>
+      <p>We stitch and deliver right to you. Bespoke fashion made completely seamless — city-wide, right to your door.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-tag"><span class="tag-dot"></span>How It Works<span class="tag-dot"></span></div>
+  <h2 class="section-title">From Your <em>Vision</em><br/>to Your Wardrobe</h2>
+  <div class="soft-divider"></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num-label">Step 01</div>
+      <div class="step-bubble">📋</div>
+      <h4>Submit Your Order</h4>
+      <p>Fill in our booking form with your measurements, style ideas, and contact details.</p>
+    </div>
+    <div class="step">
+      <div class="step-num-label">Step 02</div>
+      <div class="step-bubble">📞</div>
+      <h4>We Call You</h4>
+      <p>Our team confirms your order, discusses fabric and design choices, and answers every question.</p>
+    </div>
+    <div class="step">
+      <div class="step-num-label">Step 03</div>
+      <div class="step-bubble">✂️</div>
+      <h4>We Stitch</h4>
+      <p>Your garment is lovingly cut, sewn, and quality-checked by our expert tailors.</p>
+    </div>
+    <div class="step">
+      <div class="step-num-label">Step 04</div>
+      <div class="step-bubble">🎀</div>
+      <h4>Delivered to You</h4>
+      <p>Your finished piece arrives beautifully packaged and ready to wear, right at your doorstep.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="floral-corner" style="top:2rem;right:3rem;">🌷🌸🌺</div>
+  <div class="section-tag"><span class="tag-dot"></span>Client Love<span class="tag-dot"></span></div>
+  <h2 class="section-title">What Our <em>Queens</em> Say</h2>
+  <div class="soft-divider"></div>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <span class="t-floral">🌸</span>
+      <div class="stars">★★★★★</div>
+      <p>I've never had anything fit me so perfectly. They took my measurements remotely and the dress arrived like a dream — absolutely flawless work from start to finish.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">A</div>
+        <div class="author-info"><strong>Amira Hassan</strong><span>Wedding Guest Dress</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <span class="t-floral">🌷</span>
+      <div class="stars">★★★★★</div>
+      <p>QueenLine stitched my bridal abaya and it was beyond anything I imagined. The fabric quality, the finishing, the fit — my guests couldn't stop complimenting me!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">F</div>
+        <div class="author-info"><strong>Fatima Al-Rashid</strong><span>Bridal Abaya</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <span class="t-floral">🌺</span>
+      <div class="stars">★★★★★</div>
+      <p>I sent a dress that was two sizes too big. They transformed it completely and delivered in 5 days. I'll never go to a regular tailor again — QueenLine is on another level!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">N</div>
+        <div class="author-info"><strong>Nadia Okonkwo</strong><span>Alteration Service</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <span class="t-floral">🌸</span>
+      <div class="stars">★★★★★</div>
+      <p>The home delivery sealed the deal initially, but the quality of work made me a loyal customer. Already on my third order — and each piece is more beautiful than the last!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">S</div>
+        <div class="author-info"><strong>Salma Karimi</strong><span>Office Wear Collection</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <span class="t-floral">🌷</span>
+      <div class="stars">★★★★★</div>
+      <p>Ordered a custom shalwar kameez for Eid and the embroidery and fit were flawless. The team was so patient with my requests. Highly recommend to every woman!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">Z</div>
+        <div class="author-info"><strong>Zainab Mirza</strong><span>Cultural Garment</span></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <span class="t-floral">🌺</span>
+      <div class="stars">★★★★★</div>
+      <p>As a plus-size woman, finding clothes that fit has always been a struggle. QueenLine changed my life — everything they make fits beautifully and I feel like an absolute queen!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">R</div>
+        <div class="author-info"><strong>Rania Boussaid</strong><span>Custom Evening Wear</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING FORM -->
+<section id="booking">
+  <div class="booking-header">
+    <div class="section-tag"><span class="tag-dot"></span>Book Your Fitting<span class="tag-dot"></span></div>
+    <h2 class="section-title">Tell Us About<br/><em>Your Dream Piece</em></h2>
+    <div class="soft-divider"></div>
+    <p style="color:var(--text-mid);line-height:1.9;font-size:0.95rem;">Fill in your details and measurements below — our team will reach out within 24 hours to confirm your order. All measurements in centimetres (cm).</p>
+  </div>
+  <div class="form-wrapper">
+    <form id="orderForm">
+      <p class="form-section-title">🌸 Personal Information</p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name *</label>
+          <input type="text" name="name" placeholder="Your full name" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone Number *</label>
+          <input type="tel" name="phone" placeholder="+1 234 567 8900" required/>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" placeholder="your@email.com" required/>
+        </div>
+        <div class="form-group">
+          <label>City / Area</label>
+          <input type="text" name="city" placeholder="Your city for delivery"/>
+        </div>
+        <div class="form-group full">
+          <label>Delivery Address</label>
+          <input type="text" name="address" placeholder="Full delivery address"/>
+        </div>
+      </div>
+
+      <p class="form-section-title">🌷 Order Details</p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Service Required *</label>
+          <select name="service" required>
+            <option value="" disabled selected>Select a service</option>
+            <option>Custom Dress</option>
+            <option>Alterations &amp; Fitting</option>
+            <option>Bridal &amp; Occasion Wear</option>
+            <option>Formal &amp; Office Attire</option>
+            <option>Cultural &amp; Traditional Wear</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Occasion / Purpose</label>
+          <input type="text" name="occasion" placeholder="e.g. Wedding, Office, Eid"/>
+        </div>
+        <div class="form-group">
+          <label>Preferred Fabric</label>
+          <input type="text" name="fabric" placeholder="e.g. Chiffon, Cotton, Silk"/>
+        </div>
+        <div class="form-group">
+          <label>Budget Range</label>
+          <select name="budget">
+            <option value="" disabled selected>Select budget</option>
+            <option>Under $50</option>
+            <option>$50 – $150</option>
+            <option>$150 – $300</option>
+            <option>$300 – $500</option>
+            <option>$500+</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Style Description / Reference</label>
+          <textarea name="style" placeholder="Describe the style, cut, and design you're imagining. You can also share reference photos via WhatsApp after booking."></textarea>
+        </div>
+      </div>
+
+      <p class="form-section-title">✂️ Your Measurements (cm)</p>
+      <div class="form-grid three">
+        <div class="form-group">
+          <label>Bust / Chest *</label>
+          <div class="input-unit"><input type="number" name="bust" placeholder="e.g. 90" min="50" max="200"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Waist *</label>
+          <div class="input-unit"><input type="number" name="waist" placeholder="e.g. 72" min="40" max="200"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Hips *</label>
+          <div class="input-unit"><input type="number" name="hips" placeholder="e.g. 98" min="50" max="200"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Shoulder Width</label>
+          <div class="input-unit"><input type="number" name="shoulder" placeholder="e.g. 38"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Sleeve Length</label>
+          <div class="input-unit"><input type="number" name="sleeve" placeholder="e.g. 58"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Back Length</label>
+          <div class="input-unit"><input type="number" name="back_length" placeholder="e.g. 40"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Dress / Skirt Length</label>
+          <div class="input-unit"><input type="number" name="dress_length" placeholder="e.g. 120"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Neck Circumference</label>
+          <div class="input-unit"><input type="number" name="neck" placeholder="e.g. 35"/><span class="unit-label">cm</span></div>
+        </div>
+        <div class="form-group">
+          <label>Height</label>
+          <div class="input-unit"><input type="number" name="height" placeholder="e.g. 165"/><span class="unit-label">cm</span></div>
+        </div>
+      </div>
+
+      <div class="form-group full" style="margin-top:1.5rem;">
+        <label>Additional Notes</label>
+        <textarea name="notes" placeholder="Any special requests, modifications, or notes for our tailors…" style="min-height:80px;"></textarea>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn-submit">Send My Order 🌸</button>
+        <p class="form-note">We'll contact you within 24 hours · Your measurements are kept private & confidential</p>
+      </div>
+    </form>
+    <div class="success-msg" id="successMsg">
+      <div style="font-size:3rem;margin-bottom:1rem;">🌸</div>
+      <h3>Thank You, Queen!</h3>
+      <p>Your order has been received. We'll be in touch within 24 hours to confirm your fitting and discuss your dream piece.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">QueenLine Studios</div>
+  <p style="margin-bottom:0.5rem;">🌸 Bespoke Tailoring for Women · Made with Love · Delivered to Your Door 🌸</p>
+  <p>© 2025 QueenLine Studios. All rights reserved.</p>
+</footer>
+
+<script>
+  // ============================================================
+  // 👉 STEP 1: Paste your Google Apps Script Web App URL below
+  // ============================================================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykzApRtvzCdBq2IsWjwnjezJj3R9uvvIYK74z1DvVpMeG0vB-X6WtbafUAIKaUydJ5kQ/exec";
+  // ============================================================
+
+  const form = document.getElementById('orderForm');
+  const successMsg = document.getElementById('successMsg');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = form.querySelector('.btn-submit');
+    const originalText = btn.textContent;
+
+    // Show loading state
+    btn.textContent = 'Sending… 🌸';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try {
+      // Google Apps Script works best with URL-encoded form data
+      // This avoids CORS preflight issues that block JSON POST requests
+      const encoded = Object.keys(data)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+        .join('&');
+
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encoded
+      });
+
+      // no-cors always returns an "opaque" response (we can't read it)
+      // but if we reach here without throwing, the request was sent successfully
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+      successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    } catch (err) {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      alert('❌ Could not send. Check:\n1. SCRIPT_URL is correctly pasted\n2. Script is deployed as "Anyone" can access\n3. You are connected to the internet\n\nError: ' + err.message);
+    }
+  });
+
+  // Smooth scroll with nav offset
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) window.scrollTo({ top: t.offsetTop - 80, behavior: 'smooth' });
+    });
+  });
+
+  // Scroll reveal with stagger
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .step, .testimonial').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+    el.style.transition = `opacity 0.6s ease ${i * 0.07}s, transform 0.6s ease ${i * 0.07}s`;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
